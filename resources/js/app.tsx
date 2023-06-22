@@ -1,5 +1,5 @@
-import React from "react";
-import { render } from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 import AttendanceList from './AttendanceList.tsx';
 
-render(<AttendanceList />, document.getElementById("app"));
+ReactDOM.render(<AttendanceList />, document.getElementById('app'));

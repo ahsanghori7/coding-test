@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-interface Attendance {
-  name: string;
-  checkin: string | null;
-  checkout: string | null;
-  totalWorkingHours: number | null;
-}
-
-const AttendanceList: React.FC = () => {
-  const [attendanceList, setAttendanceList] = useState<Attendance[]>([]);
+const AttendanceList = () => {
+  const [attendanceList, setAttendanceList] = useState([]);
 
   useEffect(() => {
     // Fetch attendance data from the API endpoint
     const fetchAttendanceData = async () => {
       try {
-        const response = await axios.get('api/attendance/'); // Replace with your actual API endpoint
+        const response = await axios.get('api/attendance/1'); // Replace with your actual API endpoint
         setAttendanceList(response.data);
       } catch (error) {
         console.error('Error fetching attendance data:', error);
