@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/duplicates', [DuplicateController::class, 'findDuplicates']);
+
+Route::get('/groupByOwer', [DuplicateController::class, 'groupByOwer']);
