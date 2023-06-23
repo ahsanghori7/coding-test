@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DuplicateController;
-
+use App\Http\Controllers\AttendanceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,3 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/duplicates', [DuplicateController::class, 'findDuplicates']);
 
 Route::get('/groupByOwer', [DuplicateController::class, 'groupByOwer']);
+
+
+Route::post('/attendance', [AttendanceController::class, 'uploadAttendance'])->name('attendance.store');
+Route::get('/attendance', [AttendanceController::class, 'getEmployeeAttendance'])->name('attendance.employee');
