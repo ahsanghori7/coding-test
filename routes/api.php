@@ -25,4 +25,4 @@ Route::get('/groupByOwer', [DuplicateController::class, 'groupByOwer']);
 
 
 Route::post('/attendance', [AttendanceController::class, 'uploadAttendance'])->name('attendance.store');
-Route::get('/attendance/{employeeId}', [AttendanceController::class, 'getEmployeeAttendance'])->name('attendance.employee');
+Route::get('/attendance', [AttendanceController::class, 'getEmployeeAttendance'])->name('attendance.employee');

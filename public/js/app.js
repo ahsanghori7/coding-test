@@ -2116,11 +2116,11 @@ var AttendanceList = function AttendanceList() {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_2__["default"].get('api/attendance/1');
+              return axios__WEBPACK_IMPORTED_MODULE_2__["default"].get('api/attendance');
             case 3:
               response = _context.sent;
               // Replace with your actual API endpoint
-              setAttendanceList(response.data);
+              setAttendanceList(response.data.attendance);
               _context.next = 10;
               break;
             case 7:
@@ -2156,18 +2156,23 @@ var AttendanceList = function AttendanceList() {
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-        children: attendanceList.map(function (attendance, index) {
+        children: Array.isArray(attendanceList) && attendanceList.length > 0 ? attendanceList.map(function (attendance, index) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: attendance.name
+              children: attendance.employee.full_name
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: attendance.checkin || 'N/A'
+              children: attendance.clock_in || 'N/A'
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: attendance.checkout || 'N/A'
+              children: attendance.clock_out || 'N/A'
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-              children: attendance.totalWorkingHours || 'N/A'
+              children: attendance.totalWorkingHours.toFixed() || 'N/A'
             })]
           }, index);
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+            colSpan: 4,
+            children: "No attendance data available"
+          })
         })
       })]
     })]

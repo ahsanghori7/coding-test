@@ -8,8 +8,8 @@ const AttendanceList = () => {
     // Fetch attendance data from the API endpoint
     const fetchAttendanceData = async () => {
       try {
-        const response = await axios.get('api/attendance/1'); // Replace with your actual API endpoint
-        setAttendanceList(response.data);
+        const response = await axios.get('api/attendance'); // Replace with your actual API endpoint
+        setAttendanceList(response.data.attendance);
       } catch (error) {
         console.error('Error fetching attendance data:', error);
       }
@@ -31,14 +31,20 @@ const AttendanceList = () => {
           </tr>
         </thead>
         <tbody>
-          {attendanceList.map((attendance, index) => (
-            <tr key={index}>
-              <td>{attendance.name}</td>
-              <td>{attendance.checkin || 'N/A'}</td>
-              <td>{attendance.checkout || 'N/A'}</td>
-              <td>{attendance.totalWorkingHours || 'N/A'}</td>
+          {Array.isArray(attendanceList)  && attendanceList.length > 0 ? (
+            attendanceList.map((attendance, index) => (
+              <tr key={index}>
+                <td>{attendance.employee.full_name}</td>
+                <td>{attendance.clock_in || 'N/A'}</td>
+                <td>{attendance.clock_out || 'N/A'}</td>
+                <td>{attendance.totalWorkingHours.toFixed() || 'N/A'}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={4}>No attendance data available</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

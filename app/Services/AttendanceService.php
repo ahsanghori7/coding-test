@@ -32,17 +32,23 @@ class AttendanceService
         }
     }
 
-    public function getEmployeeAttendanceWithTotalHours($employeeId)
+    public function getEmployeeAttendanceWithTotalHours()
     {
-        $attendance = Attendance::where('employee_id', $employeeId)->get();
+        $attendance = Attendance::with('employee')->get();
         
-        $totalHours = DB::table('attendances')
-            ->where('employee_id', $employeeId)
-            ->sum(DB::raw('TIMESTAMPDIFF(HOUR, clock_in, clock_out)'));
+        $attendanceWithTotalHours = $attendance->map(function ($item) {
+            $totalWorkingHours = strtotime($item->clock_out) - strtotime($item->clock_in);
+            $item->totalWorkingHours = $totalWorkingHours / (60 * 60);
+
+            $item->employee->full_name = $item->employee->first_name . ' ' . $item->employee->last_name;
+
+            return $item;
+        });
+    
+        $totalHours = $attendanceWithTotalHours->sum('totalWorkingHours');
         
         return [
-            'attendance' => $attendance,
-            'total_hours' => $totalHours,
+            'attendance' => $attendanceWithTotalHours->toArray(),
         ];
     }
 }

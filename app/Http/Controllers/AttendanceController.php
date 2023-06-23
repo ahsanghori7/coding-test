@@ -28,9 +28,9 @@ class AttendanceController extends Controller
         return response()->json(['message' => 'Attendance data uploaded and stored successfully']);
     }
 
-    public function getEmployeeAttendance(Request $request, $employeeId)
+    public function getEmployeeAttendance(Request $request)
     {
-        $attendanceData = $this->attendanceService->getEmployeeAttendanceWithTotalHours($employeeId);
+        $attendanceData = $this->attendanceService->getEmployeeAttendanceWithTotalHours();
 
         return response()->json($attendanceData);
     }
